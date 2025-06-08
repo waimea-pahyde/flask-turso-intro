@@ -11,6 +11,7 @@ load_dotenv()
 TURSO_URL = os.getenv("TURSO_URL")
 TURSO_KEY = os.getenv("TURSO_KEY")
 
+
 # Create the Flask app
 app = Flask(__name__)
 
@@ -29,10 +30,13 @@ def connect_db():
 
 
 #-----------------------------------------------------------
-# Home Page with list of things
+# Home Page with list of songs
 #-----------------------------------------------------------
 @app.get("/")
 def home():
+    client = connect_db()
+    result = client.execute("SELECT * FROM songs;")
+    print(result)
     return render_template("pages/home.jinja")
 
 
