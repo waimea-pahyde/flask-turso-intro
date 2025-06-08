@@ -2,18 +2,24 @@
 
 {% block title %}
 
-    Flask and Turso DB Demo
+    My Playlist
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Flask and Turso Demo</h1>
+    <h1>My Playlist</h1>
 
-    <section id="things">
+    <section id="songs">
 
-        <p>THINGS GO HERE!!!</p>
+        {%  for song in songs %}
+        
+        <p><a href="/song/{{ song.id }}">
+        {{ song.title }}
+        </a> </p>
+        
+        {% endfor%}
 
     </section>
 
