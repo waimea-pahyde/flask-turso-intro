@@ -2,20 +2,21 @@
 
 {% block title %}
 
-    Flask and Turso DB Demo - Single Thing
+Songs
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Thing Details</h1>
+    <h1>Song Details</h1>
 
     <article>
 
         <h3> {{ song.title }}</h3>
         <p> Duration: {{song.minutes}} minutes</p>
 
+        <a role="button" href="/delete/{{ song.id }}">delete</a>
         <a role="button" href="/">Back to the list</a>
     </article>
 

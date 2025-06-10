@@ -1,8 +1,10 @@
 from flask          import Flask
 from flask          import render_template
 from flask          import redirect
+from flask          import request
 from libsql_client  import create_client_sync
 from dotenv         import load_dotenv
+
 import os
 
 
@@ -65,12 +67,45 @@ def show_thing(id):
 def new_thing():
     return render_template("pages/thing-form.jinja")
 
+#=====================================
+# Process A new song
+#=====================================
 
+@app.post("/add-thing")
+def add_thing():
+    title = request.form.get("title")
+    minutes = request.form.get("minutes")
+    artist = "me"
+
+    print(title)
+    print(minutes)
+    print(artist)
+
+
+    #connect to the datatbase
+    client = connect_db()
+    sql = "INSERT INTO list_of_songs (title, Artist, minutes) VALUES (?, ?, ?)"
+    
+    values =  [title, artist, minutes]
+
+    client.execute(sql, values)
+
+    return redirect("/")
 #-----------------------------------------------------------
 # Thing deletion
 #-----------------------------------------------------------
 @app.get("/delete/<int:id>")
 def delete_thing(id):
+
+    client = connect_db()
+
+    sql = "DELETE FROM list_of_songs WHERE id=?"
+
+    values=[id]
+
+    client.execute(sql, values)
+
+
     return redirect("/")
 
 
